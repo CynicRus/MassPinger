@@ -1,0 +1,122 @@
+object Form1: TForm1
+  Left = 239
+  Height = 550
+  Top = 329
+  Width = 731
+  ClientHeight = 530
+  ClientWidth = 731
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  LCLVersion = '0.9.30.4'
+  object GroupBox1: TGroupBox
+    Left = 0
+    Height = 504
+    Top = 0
+    Width = 192
+    Caption = 'Groups:'
+    ClientHeight = 486
+    ClientWidth = 188
+    TabOrder = 0
+    object TreeView1: TTreeView
+      Left = 6
+      Height = 481
+      Top = 0
+      Width = 177
+      DefaultItemHeight = 17
+      ReadOnly = True
+      ScrollBars = ssVertical
+      TabOrder = 0
+      OnClick = TreeView1Click
+      Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+    end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 507
+    Width = 731
+    Panels = <>
+  end
+  object GroupBox2: TGroupBox
+    Left = 192
+    Height = 504
+    Top = 0
+    Width = 536
+    Caption = 'Workstations:'
+    ClientHeight = 486
+    ClientWidth = 532
+    TabOrder = 2
+    object PageControl1: TPageControl
+      Left = 6
+      Height = 480
+      Top = 0
+      Width = 520
+      ActivePage = TabSheet1
+      TabIndex = 0
+      TabOrder = 0
+      object TabSheet1: TTabSheet
+        Caption = 'Info'
+        ClientHeight = 452
+        ClientWidth = 512
+        object ListView1: TListView
+          Left = 4
+          Height = 438
+          Top = 8
+          Width = 506
+          Columns = <          
+            item
+              Caption = 'PC-name'
+              Width = 85
+            end          
+            item
+              Caption = 'IP'
+              Width = 110
+            end          
+            item
+              Caption = 'Attempts'
+              Width = 70
+            end          
+            item
+              Caption = 'Time'
+              Width = 60
+            end          
+            item
+              Caption = 'Loses:'
+              Width = 75
+            end          
+            item
+              Caption = 'Current status:'
+              Width = 100
+            end>
+          ReadOnly = True
+          TabOrder = 0
+          ViewStyle = vsReport
+        end
+      end
+      object TabSheet2: TTabSheet
+        Caption = 'Log'
+      end
+    end
+  end
+  object MainMenu1: TMainMenu
+    left = 319
+    top = 16
+    object MenuItem1: TMenuItem
+      Caption = 'File'
+      object MenuItem2: TMenuItem
+        Caption = 'Hide'
+      end
+      object MenuItem3: TMenuItem
+        Caption = 'Exit'
+      end
+    end
+  end
+  object GroupMenu: TPopupMenu
+    left = 293
+    top = 500
+  end
+  object PCMenu: TPopupMenu
+    left = 328
+    top = 500
+  end
+end
