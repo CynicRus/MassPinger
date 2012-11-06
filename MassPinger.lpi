@@ -37,12 +37,12 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="17">
+    <Units Count="21">
       <Unit0>
         <Filename Value="MassPinger.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MassPinger"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="35"/>
       </Unit0>
       <Unit1>
         <Filename Value="mp_main.pas"/>
@@ -53,9 +53,9 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="53"/>
-        <CursorPos X="4" Y="74"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="153"/>
+        <CursorPos X="12" Y="167"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -63,23 +63,21 @@
         <Filename Value="mp_types.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mp_types"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="10"/>
-        <CursorPos X="5" Y="22"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="4"/>
+        <CursorPos X="16" Y="12"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="mp_loader.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mp_loader"/>
-        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="22"/>
-        <CursorPos X="1" Y="37"/>
-        <UsageCount Value="24"/>
-        <Loaded Value="True"/>
+        <TopLine Value="69"/>
+        <CursorPos X="77" Y="82"/>
+        <UsageCount Value="35"/>
       </Unit3>
       <Unit4>
         <Filename Value="C:\lazarus\fpc\2.6.0\source\rtl\inc\variants.pp"/>
@@ -87,16 +85,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="67"/>
         <CursorPos X="10" Y="85"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit4>
       <Unit5>
         <Filename Value="C:\lazarus\lcl\include\customform.inc"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="863"/>
         <CursorPos X="1" Y="878"/>
-        <UsageCount Value="12"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="14"/>
       </Unit5>
       <Unit6>
         <Filename Value="mp_threadpool.pas"/>
@@ -105,38 +101,35 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="35"/>
       </Unit6>
       <Unit7>
         <Filename Value="mp_pingthread.pas"/>
-        <IsPartOfProject Value="True"/>
         <UnitName Value="mp_pingthread"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="25" Y="8"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="14"/>
+        <CursorPos X="17" Y="35"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="mp_utils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mp_utils"/>
-        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="89"/>
         <CursorPos X="1" Y="115"/>
-        <UsageCount Value="24"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="35"/>
       </Unit8>
       <Unit9>
         <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
         <UnitName Value="pingsend"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="691"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="12"/>
+        <TopLine Value="159"/>
+        <CursorPos X="14" Y="156"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -147,7 +140,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="86" Y="10"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="19"/>
       </Unit10>
       <Unit11>
         <Filename Value="mp_addpcdlg.pas"/>
@@ -155,52 +148,28 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="6" Y="19"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="19"/>
       </Unit11>
       <Unit12>
         <Filename Value="C:\lazarus\lcl\dialogs.pp"/>
         <UnitName Value="Dialogs"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="49"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="dlgFrm"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="mp_addpcdlg"/>
-        <EditorIndex Value="4"/>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="80"/>
-        <CursorPos X="26" Y="87"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="2274"/>
+        <CursorPos X="1" Y="2289"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit13>
       <Unit14>
-        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
-        <EditorIndex Value="6"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="2793"/>
-        <CursorPos X="1" Y="2808"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
-      </Unit14>
-      <Unit15>
-        <Filename Value="unit1.pas"/>
-        <UnitName Value="Unit1"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="21"/>
-        <Loaded Value="True"/>
-      </Unit15>
-      <Unit16>
         <Filename Value="mp_addpcdlgu.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="mp_addpcdlgu"/>
@@ -208,130 +177,173 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="21" Y="42"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="C:\lazarus\lcl\interfaces\win32\win32callback.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2412"/>
+        <CursorPos X="1" Y="2427"/>
+        <UsageCount Value="10"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="C:\lazarus\lcl\include\treeview.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="3862"/>
+        <CursorPos X="1" Y="3881"/>
+        <UsageCount Value="11"/>
       </Unit16>
+      <Unit17>
+        <Filename Value="C:\lazarus\lcl\comctrls.pp"/>
+        <UnitName Value="ComCtrls"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="2579"/>
+        <CursorPos X="42" Y="2774"/>
+        <UsageCount Value="11"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="C:\lazarus\lcl\include\buttoncontrol.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="56"/>
+        <CursorPos X="16" Y="58"/>
+        <UsageCount Value="11"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="C:\lazarus\lcl\include\buttons.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="317"/>
+        <CursorPos X="1" Y="342"/>
+        <UsageCount Value="12"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="C:\lazarus\lcl\include\toolbutton.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="750"/>
+        <CursorPos X="1" Y="765"/>
+        <UsageCount Value="10"/>
+      </Unit20>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="92" Column="63" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="158" Column="63" TopLine="138"/>
       </Position1>
       <Position2>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="88" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="274" Column="42" TopLine="237"/>
       </Position2>
       <Position3>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="89" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="155" Column="3" TopLine="151"/>
       </Position3>
       <Position4>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="91" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="158" Column="1" TopLine="151"/>
       </Position4>
       <Position5>
-        <Filename Value="mp_utils.pas"/>
-        <Caret Line="113" Column="1" TopLine="89"/>
+        <Filename Value="mp_types.pas"/>
+        <Caret Line="67" Column="1" TopLine="52"/>
       </Position5>
       <Position6>
-        <Filename Value="mp_utils.pas"/>
-        <Caret Line="114" Column="1" TopLine="89"/>
+        <Filename Value="mp_types.pas"/>
+        <Caret Line="68" Column="1" TopLine="52"/>
       </Position6>
       <Position7>
-        <Filename Value="mp_utils.pas"/>
-        <Caret Line="115" Column="1" TopLine="89"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="159" Column="1" TopLine="151"/>
       </Position7>
       <Position8>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="91" Column="1" TopLine="79"/>
+        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
+        <Caret Line="2289" Column="1" TopLine="2274"/>
       </Position8>
       <Position9>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="92" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="158" Column="26" TopLine="148"/>
       </Position9>
       <Position10>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="91" Column="1" TopLine="79"/>
+        <Filename Value="mp_pingthread.pas"/>
+        <Caret Line="16" Column="35" TopLine="1"/>
       </Position10>
       <Position11>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="92" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="170" Column="42" TopLine="149"/>
       </Position11>
       <Position12>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="91" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="198" Column="33" TopLine="152"/>
       </Position12>
       <Position13>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="92" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="156" Column="1" TopLine="150"/>
       </Position13>
       <Position14>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="91" Column="1" TopLine="79"/>
+        <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
+        <Caret Line="338" Column="1" TopLine="323"/>
       </Position14>
       <Position15>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="94" Column="1" TopLine="79"/>
+        <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
+        <Caret Line="339" Column="1" TopLine="323"/>
       </Position15>
       <Position16>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="87" Column="33" TopLine="79"/>
+        <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
+        <Caret Line="340" Column="1" TopLine="323"/>
       </Position16>
       <Position17>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="94" Column="1" TopLine="79"/>
+        <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
+        <Caret Line="341" Column="1" TopLine="323"/>
       </Position17>
       <Position18>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="96" Column="1" TopLine="79"/>
+        <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
+        <Caret Line="342" Column="1" TopLine="323"/>
       </Position18>
       <Position19>
-        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
-        <Caret Line="2785" Column="1" TopLine="2770"/>
+        <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
+        <Caret Line="343" Column="1" TopLine="323"/>
       </Position19>
       <Position20>
-        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
-        <Caret Line="2788" Column="1" TopLine="2770"/>
+        <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
+        <Caret Line="344" Column="1" TopLine="329"/>
       </Position20>
       <Position21>
-        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
-        <Caret Line="2790" Column="1" TopLine="2770"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="156" Column="1" TopLine="150"/>
       </Position21>
       <Position22>
-        <Filename Value="C:\lazarus\lcl\include\control.inc"/>
-        <Caret Line="2808" Column="1" TopLine="2793"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="157" Column="1" TopLine="150"/>
       </Position22>
       <Position23>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="97" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="159" Column="1" TopLine="150"/>
       </Position23>
       <Position24>
-        <Filename Value="mp_addpcdlgu.pas"/>
-        <Caret Line="15" Column="23" TopLine="1"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="160" Column="1" TopLine="150"/>
       </Position24>
       <Position25>
-        <Filename Value="mp_addpcdlgu.pas"/>
-        <Caret Line="13" Column="3" TopLine="1"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="168" Column="36" TopLine="150"/>
       </Position25>
       <Position26>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="73" Column="32" TopLine="50"/>
+        <Caret Line="160" Column="43" TopLine="141"/>
       </Position26>
       <Position27>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="58" Column="31" TopLine="44"/>
+        <Caret Line="172" Column="51" TopLine="154"/>
       </Position27>
       <Position28>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="71" Column="9" TopLine="47"/>
+        <Caret Line="189" Column="70" TopLine="179"/>
       </Position28>
       <Position29>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="94" Column="1" TopLine="79"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="170" Column="59" TopLine="161"/>
       </Position29>
       <Position30>
-        <Filename Value="mp_addpcdlgu.pas"/>
-        <Caret Line="42" Column="21" TopLine="19"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="161" Column="13" TopLine="147"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

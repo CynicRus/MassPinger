@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, mp_main, mp_types, mp_loader, mp_threadpool, mp_pingthread, mp_utils,
+  Forms, mp_main, mp_types, mp_loader, mp_threadpool, mp_utils,
   laz_synapse, mp_addpcdlg, mp_addpcdlgu;
 
 {$R *.res}

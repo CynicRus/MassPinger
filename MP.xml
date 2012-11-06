@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document>
-  <network name="DC">
-    <workstation ip="192.168.11.1" play="0" alarm="30000" melody="" timeout="1000" compname="Srv-hotel"/>
+  <network name="РЎРµСЂРІРµСЂР°">
+    <workstation ip="192.168.11.1" play="0" alarm="30000" melody="" timeout="1000" compname="srv-hotel(Primary DC)"/>
+    <workstation ip="192.168.11.3" play="0" alarm="30000" melody="" timeout="1000" compname="srv-audit"/>
+    <workstation ip="192.168.11.4" play="0" alarm="30000" melody="" timeout="1000" compname="srv-sql"/>
+    <workstation ip="192.168.11.5" play="0" alarm="30000" melody="" timeout="1000" compname="srv-gate1c"/>
+    <workstation ip="192.168.11.6" play="0" alarm="30000" melody="" timeout="1000" compname="srv-1C"/>
+    <workstation ip="192.168.11.7" play="0" alarm="30000" melody="" timeout="1000" compname="srv-libra"/>
+    <workstation ip="192.168.11.254" play="0" alarm="30000" melody="" timeout="1000" compname="srv-gate(С€Р»СЋР·)"/>
+  </network>
+  <network name="РЈРїСЂР°РІР»СЏРµРјС‹Рµ СЃРІРёС‡Рё">
+    <workstation ip="192.168.11.11" play="0" alarm="30000" melody="" timeout="1000" compname="РљСЂРѕСЃСЃ СЃС‚СЌРє-1"/>
+    <workstation ip="192.168.11.12" play="0" alarm="30000" melody="" timeout="1000" compname="РљСЂРѕСЃСЃ СЃС‚СЌРє-2"/>
+    <workstation ip="192.168.11.13" play="0" alarm="30000" melody="" timeout="1000" compname="РЎРµСЂРІРёСЃ-Р±СЋСЂРѕ"/>
+    <workstation ip="192.168.11.14" play="0" alarm="30000" melody="" timeout="1000" compname="3-СЌС‚Р°Р¶"/>
+    <workstation ip="192.168.11.15" play="0" alarm="30000" melody="" timeout="1000" compname="5-СЌС‚Р°Р¶"/>
+    <workstation ip="192.168.11.16" play="0" alarm="30000" melody="" timeout="1000" compname="7-СЌС‚Р°Р¶"/>
+    <workstation ip="192.168.11.17" play="0" alarm="30000" melody="" timeout="1000" compname="14-СЌС‚Р°Р¶"/>
+    <workstation ip="192.168.11.18" play="0" alarm="30000" melody="" timeout="1000" compname="22-СЌС‚Р°Р¶"/>
+  </network>
+  <network name="Р’Р°Р¶РЅС‹Рµ РєРѕРјРїСЊСЋС‚РµСЂС‹">
+    <workstation ip="192.168.11.33" play="0" alarm="30000" melody="" timeout="1000" compname="ats"/>
+    <workstation ip="192.168.11.210" play="0" alarm="30000" melody="" timeout="1000" compname="РРЅС‚РµСЂС„РµР№СЃРЅС‹Р№ РєРѕРјРїСЊСЋС‚РµСЂ"/>
   </network>
 </Document>

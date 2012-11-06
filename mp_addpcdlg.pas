@@ -111,7 +111,7 @@ end;
 
 procedure TdlgFrm.Button3Click(Sender: TObject);
 begin
-  self.Destroy;
+  self.Hide;
 end;
 
 end.

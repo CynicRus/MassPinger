@@ -8,7 +8,8 @@ uses
   Classes, SysUtils; 
 type
   TStat = record
-    ms,attempts,tAttempts,status,loses:integer;
+    attempts,tAttempts,status,loses:integer;
+    ms: double;
   end;
 
   { TPingItem }
