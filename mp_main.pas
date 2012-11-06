@@ -43,17 +43,34 @@ var
   Storage: TMPStorage;
 
 implementation
-
+uses mp_addpcdlgu;
 {$R *.lfm}
 
 { TForm1 }
 
 procedure TForm1.FormCreate(Sender: TObject);
 var
-  tPing: TPingItem;
-  tNetwItem: TNetworkItem;
+//  tPing: TPingItem;
+//  tNetwItem: TNetworkItem;
+//  frm: TAddCpuDialog;
 begin
   Storage:= TMPStorage.Create;
+{  tNetwItem:=Storage.AddItem ;
+  tNetwItem.Name:='DC';
+ // Storage.LoadFromXmlFile('MP.xml');
+//  LoadToTreeView();
+  tPing:=tNetwItem.PCList.AddItem;
+  frm:=TAddCpuDialog.Create(self);
+  if frm.Execute then
+   begin
+   tPing.Name:=frm.MainForm.PingItem.Name;
+   tPing.IP:=frm.MainForm.PingItem.IP;
+   tPing.Melody:=frm.MainForm.PingItem.Melody;
+   tPing.PlaySound:=frm.MainForm.PingItem.PlaySound;
+   tPing.CheckTimeout:=frm.MainForm.PingItem.CheckTimeout;
+   tPing.AlarmTimeout:=frm.MainForm.PingItem.AlarmTimeout;
+   end;
+  Storage.SaveToXmlFile('MP.xml');}
   Storage.LoadFromXmlFile('MP.xml');
   LoadToTreeView();
 end;

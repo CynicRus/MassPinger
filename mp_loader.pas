@@ -34,7 +34,7 @@ procedure TMPStorage.LoadFromXmlFile(aFileName: string);
         oPingItem.Name:= VarToStr(oNode.Attributes.GetNamedItem('compname').NodeValue);
         oPingItem.ip  := VarToStr(oNode.Attributes.GetNamedItem('ip').NodeValue);
         oPingItem.melody   := VarToStr(oNode.Attributes.GetNamedItem('melody').NodeValue);
-        oPingItem.LogFile   := VarToStr(oNode.Attributes.GetNamedItem('logfile').NodeValue);
+        oPingItem.AlarmTimeout   := StrToInt(VarToStr(oNode.Attributes.GetNamedItem('alarm').NodeValue));
         oPingItem.CheckTimeout:= StrToInt(VarToStr(oNode.Attributes.GetNamedItem('timeout').NodeValue));
         oPingItem.PlaySound:= StrToInt(VarToStr(oNode.Attributes.GetNamedItem('play').NodeValue));
       end;
@@ -53,7 +53,7 @@ procedure TMPStorage.LoadFromXmlFile(aFileName: string);
 
         oNode:=aNode.ChildNodes[i];
         oNetworkItem.Name:= oNode.Attributes.GetNamedItem('name').NodeValue;
-        oNetworkItem.Log:= oNode.Attributes.GetNamedItem('logfile').NodeValue;
+       // oNetworkItem.Log:= oNode.Attributes.GetNamedItem('logfile').NodeValue;
 
         DoLoadPC(oNode, oNetworkItem);
       end;
@@ -87,7 +87,7 @@ procedure TMPStorage.SaveToXmlFile(aFileName: string);
        begin
          NetworkNode:=oXmlDocument.CreateElement('network');
          TDOMElement(NetworkNode).SetAttribute('name',Items[i].Name);
-         TDOMElement(NetworkNode).SetAttribute('logfile',Items[i].Log);
+        // TDOMElement(NetworkNode).SetAttribute('logfile',Items[i].Log);
            for d:=0 to Items[i].PCList.Count - 1 do
               begin
                 oPingItem:=Items[i].PCList.Items[d];
@@ -95,7 +95,7 @@ procedure TMPStorage.SaveToXmlFile(aFileName: string);
                 TDOMElement(PingItemNode).SetAttribute('compname',oPingItem.Name);
                 TDOMElement(PingItemNode).SetAttribute('ip',oPingItem.IP);
                 TDOMElement(PingItemNode).SetAttribute('melody',oPingItem.Melody);
-                TDOMElement(PingItemNode).SetAttribute('logfile',oPingItem.LogFile);
+                TDOMElement(PingItemNode).SetAttribute('alarm',intToStr(oPingItem.AlarmTimeout));
                 TDOMElement(PingItemNode).SetAttribute('play',IntToStr(oPingItem.PlaySound));
                 TDOMElement(PingItemNode).SetAttribute('timeout',IntToStr(oPingItem.CheckTimeout));
                 NetworkNode.AppendChild(PingItemNode);

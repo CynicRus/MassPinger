@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Document>
-  <network name="Domain controllers" logfile="C:/pingerlog.txt">
-    <workstation ip="192.168.11.1" play="0" melody="C:/hehe.mp3" logfile="C:/srv-pdc.txt" timeout="1000" compname="srv-pdc"/>
-    <workstation ip="192.168.11.2" play="0" melody="C:/hehe.mp3" logfile="C:/srv-pdc_res.txt" timeout="1000" compname="srv-pdc_res"/>
-  </network>
-  <network name="Data bases" logfile="C:/pingerlog.txt">
-    <workstation ip="192.168.11.3" play="0" melody="C:/hehe.mp3" logfile="C:/srv-sql1.txt" timeout="1000" compname="srv-sql1"/>
+  <network name="DC">
+    <workstation ip="192.168.11.1" play="0" alarm="30000" melody="" timeout="1000" compname="Srv-hotel"/>
   </network>
 </Document>

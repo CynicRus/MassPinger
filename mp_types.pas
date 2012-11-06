@@ -20,9 +20,9 @@ type
     Melody: string;
     PlaySound: integer;
     CheckTimeout: integer;
-    LogFile: string;
+    AlarmTimeout: integer;
     //not stored
-  //  CurrentStat: TStat;
+    CurrentStat: TStat;
       constructor Create(Col: TCollection); override;
       destructor Destroy; override;
     end;
@@ -44,7 +44,6 @@ type
   TNetworkItem = class(TCollectionItem)
     public
       Name: string;
-      Log: string;
       PCList: TPingItemList;
       constructor Create(Col: TCollection); override;
       destructor Destroy; override;

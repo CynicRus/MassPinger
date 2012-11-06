@@ -23,6 +23,7 @@ object Form1: TForm1
       Top = 0
       Width = 177
       DefaultItemHeight = 17
+      PopupMenu = GroupMenu
       ReadOnly = True
       ScrollBars = ssVertical
       TabOrder = 0
@@ -88,6 +89,7 @@ object Form1: TForm1
               Caption = 'Current status:'
               Width = 100
             end>
+          PopupMenu = PCMenu
           ReadOnly = True
           TabOrder = 0
           ViewStyle = vsReport

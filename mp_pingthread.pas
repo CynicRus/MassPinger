@@ -5,7 +5,7 @@ unit mp_pingthread;
 interface
 
 uses
-  Classes, SysUtils; 
+  Classes, SysUtils,PingSend;
 
 implementation
 
