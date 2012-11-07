@@ -8,18 +8,16 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,mp_pingthread,PingSend;
 
-type
-  TTreeIndex = record
-    Group,item: integer;
-  end;
-
-  { TForm1 }
-
-  TForm1 = class(TForm)
+  { TPingerFrm }
+ type
+  TPingerFrm = class(TForm)
     Button1: TButton;
     Button2: TButton;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
+    Memo1: TMemo;
+    MenuItem5: TMenuItem;
+    MenuItem6: TMenuItem;
     pingList: TImageList;
     ListView1: TListView;
     MainMenu1: TMainMenu;
@@ -29,6 +27,7 @@ type
     MenuItem4: TMenuItem;
     PageControl1: TPageControl;
     PCMenu: TPopupMenu;
+    HideMenu: TPopupMenu;
     StatusBar1: TStatusBar;
     TabSheet1: TTabSheet;
     TabSheet2: TTabSheet;
@@ -37,15 +36,21 @@ type
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
+    ti: TTrayIcon;
     TreeView1: TTreeView;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure ListView1Click(Sender: TObject);
     procedure ListView1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure MenuItem2Click(Sender: TObject);
+    procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
+    procedure MenuItem5Click(Sender: TObject);
+    procedure MenuItem6Click(Sender: TObject);
     procedure PingTimerTimer(Sender: TObject);
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
@@ -76,10 +81,11 @@ TPingThread = class(TThread)
   end;
 
 var
-  Form1: TForm1;
+  PingerFrm: TPingerFrm;
   index: integer = 0;
   Storage: TMPStorage;
   Check: boolean = false;
+  Minimized: boolean = false;
   Pings: Array of TPingThread;
 
 implementation
@@ -127,9 +133,9 @@ end;
 
 {$R *.lfm}
 
-{ TForm1 }
+{ TPingerFrm }
 
-procedure TForm1.FormCreate(Sender: TObject);
+procedure TPingerFrm.FormCreate(Sender: TObject);
 //  tPing: TPingItem;
 //  tNetwItem: TNetworkItem;
 //  frm: TAddCpuDialog;
@@ -137,7 +143,6 @@ begin
   Storage:= TMPStorage.Create;
   ToolButton2.Enabled:=false;
   ToolButton3.Enabled:=false;
-
 {  tNetwItem:=Storage.AddItem ;
   tNetwItem.Name:='DC';
  // Storage.LoadFromXmlFile('MP.xml');
@@ -154,6 +159,7 @@ begin
    tPing.AlarmTimeout:=frm.MainForm.PingItem.AlarmTimeout;
    end;
   Storage.SaveToXmlFile('MP.xml');}
+  self.Caption:='Mass Pinger v 1.0 by Cynic'+#32+{$IFDEF WINDOWS}'[WIN]' {$ELSE}'[LIN]'{$ENDIF};
   if fileexists('MP.xml') then
     begin
       Storage.LoadFromXmlFile('MP.xml');
@@ -162,28 +168,39 @@ begin
   SetLength(Pings,1);
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TPingerFrm.FormDestroy(Sender: TObject);
+begin
+   Check:=false;
+   sleep(500);
+   pings:=nil;
+//  FreeAndNil(Pings);
+end;
+
+procedure TPingerFrm.Button1Click(Sender: TObject);
 begin
   AddCategory(Sender);
 end;
 
-procedure TForm1.Button2Click(Sender: TObject);
+procedure TPingerFrm.Button2Click(Sender: TObject);
 begin
 if not assigned(TreeView1.Selected) then exit;
   RemoveCategory(Sender);
 end;
 
-procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+procedure TPingerFrm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
-  FreeAndNil(Pings);
+  Minimized:=true;
+  CloseAction := caNone;
+  Application.Minimize;
+  ti.show;
 end;
 
-procedure TForm1.ListView1Click(Sender: TObject);
+procedure TPingerFrm.ListView1Click(Sender: TObject);
 begin
 
 end;
 
-procedure TForm1.ListView1MouseDown(Sender: TObject; Button: TMouseButton;
+procedure TPingerFrm.ListView1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   if (button=mbRight)  then
@@ -202,17 +219,43 @@ begin
     end;
 end;
 
-procedure TForm1.MenuItem4Click(Sender: TObject);
+procedure TPingerFrm.MenuItem2Click(Sender: TObject);
+begin
+  Minimized:=true;
+  Application.Minimize;
+  ti.show;
+end;
+
+procedure TPingerFrm.MenuItem3Click(Sender: TObject);
+begin
+  HideMenu.Items[0].Click;
+end;
+
+procedure TPingerFrm.MenuItem4Click(Sender: TObject);
 begin
   //AddPC(sender);
 end;
 
-procedure TForm1.PingTimerTimer(Sender: TObject);
+procedure TPingerFrm.MenuItem5Click(Sender: TObject);
+begin
+  self.Destroy;
+  Application.Terminate;
+end;
+
+procedure TPingerFrm.MenuItem6Click(Sender: TObject);
+begin
+  Minimized:=false;
+  Application.Restore;
+//  Self.Show;
+  ti.Hide;
+end;
+
+procedure TPingerFrm.PingTimerTimer(Sender: TObject);
   begin
   PingUpdateListView(Storage.Items[index]);
   end;
 
-procedure TForm1.ToolButton1Click(Sender: TObject);
+procedure TPingerFrm.ToolButton1Click(Sender: TObject);
 var
   i,j,k: integer;
   mPing: TPingThread;
@@ -227,6 +270,7 @@ begin
   for i:=0 to Storage.Count-1 do
    for j:=0 to Storage.Items[i].PCList.Count - 1 do
     begin
+    PingTimer.Enabled:=true;
       mPing:=TPingThread.Create(false,Storage.Items[i].PCList[j]);
       pings[Length(pings)-1]:=mPing;
       SetLength(Pings,Length(pings));
@@ -241,7 +285,7 @@ begin
    end;
 end;
 
-procedure TForm1.ToolButton2Click(Sender: TObject);
+procedure TPingerFrm.ToolButton2Click(Sender: TObject);
 var
  i: integer;
 begin
@@ -252,12 +296,14 @@ begin
    begin
     TPingThread(Pings[i]).Suspended:=true;
    end;
+  PingTimer.Enabled:=false;
 end;
 
-procedure TForm1.ToolButton3Click(Sender: TObject);
+procedure TPingerFrm.ToolButton3Click(Sender: TObject);
 var
  i: integer;
 begin
+  PingTimer.Enabled:=true;
   ToolButton1.Enabled:=true;
   ToolButton2.Enabled:=false;
   ToolButton3.Enabled:=false;
@@ -271,7 +317,7 @@ begin
 
 end;
 
-procedure TForm1.TreeView1Click(Sender: TObject);
+procedure TPingerFrm.TreeView1Click(Sender: TObject);
 begin
   if assigned(TreeView1.Selected) then
        begin
@@ -281,7 +327,7 @@ begin
 end;
 
 
-procedure TForm1.LoadToTreeView();
+procedure TPingerFrm.LoadToTreeView();
 var
   I: Integer;
   TempNode: TTreeNode;
@@ -295,7 +341,7 @@ begin
   LoadGroupToListView(TNetworkItem(Storage.Items[index]));
 end;
 
-procedure TForm1.LoadGroupToListView(aGroup: TNetworkItem);
+procedure TPingerFrm.LoadGroupToListView(aGroup: TNetworkItem);
 var
   I: Integer;
   oListItem: TListItem;
@@ -319,7 +365,7 @@ begin
   end;
   end;
 
-procedure TForm1.PingUpdateListView(aGroup: TNetworkItem);
+procedure TPingerFrm.PingUpdateListView(aGroup: TNetworkItem);
 var
   I: Integer;
   oListItem: TListItem;
@@ -339,11 +385,19 @@ begin
     if oPingItem.CurrentStat.status > 0 then
     oListItem.SubItems.Add('Online')
     else
-    oListItem.SubItems.Add('Offline')
+     begin
+    oListItem.SubItems.Add('Offline') ;
+    if Minimized and Check then
+    begin
+     ti.BalloonHint:=oPingItem.name + #32 +'is offline now! Please check that!';
+     ti.ShowBalloonHint;
+     end;
   end;
   end;
 
-procedure TForm1.AddPC(Sender: TObject);
+end;
+
+procedure TPingerFrm.AddPC(Sender: TObject);
 var
   frm: TAddCpuDialog;
   tPing: TPingItem;
@@ -366,7 +420,7 @@ begin
   LoadToTreeView();
 end;
 
-procedure TForm1.RemovePC(Sender: TObject);
+procedure TPingerFrm.RemovePC(Sender: TObject);
 begin
   if storage.Count > 0 then exit;
   storage.Items[index].PCList.Delete(ListView1.Selected.Index);
@@ -374,7 +428,7 @@ begin
   LoadToTreeView();
 end;
 
-procedure TForm1.AddCategory(Sender: TObject);
+procedure TPingerFrm.AddCategory(Sender: TObject);
 var
   Net: TNetworkItem;
   UserString: string;
@@ -386,7 +440,7 @@ begin
   LoadToTreeView();
 end;
 
-procedure TForm1.RemoveCategory(Sender: TObject);
+procedure TPingerFrm.RemoveCategory(Sender: TObject);
 begin
   Storage.Delete(TreeView1.Selected.Index);
   if storage.Count > 0 then
