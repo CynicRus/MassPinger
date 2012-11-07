@@ -9,6 +9,9 @@ uses
   ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,mp_pingthread,PingSend;
 
 type
+  TTreeIndex = record
+    Group,item: integer;
+  end;
 
   { TForm1 }
 
@@ -37,6 +40,7 @@ type
     TreeView1: TTreeView;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure ListView1Click(Sender: TObject);
     procedure ListView1MouseDown(Sender: TObject; Button: TMouseButton;
@@ -59,14 +63,68 @@ type
     procedure RemoveCategory(Sender: TObject);
     { public declarations }
   end; 
+type
+
+{ TPingThread }
+
+TPingThread = class(TThread)
+  protected
+    procedure Execute; override;
+  public
+    tPing: TPingItem;
+    Constructor Create(CreateSuspended : boolean;iPing: TPingItem);
+  end;
 
 var
   Form1: TForm1;
   index: integer = 0;
   Storage: TMPStorage;
+  Check: boolean = false;
+  Pings: Array of TPingThread;
 
 implementation
 uses mp_addpcdlgu;
+
+{ TPingThread }
+
+procedure TPingThread.Execute;
+var
+  Ping: TPingSend;
+  t: integer;
+begin
+ // inherited Execute();
+   Ping:=TPingSend.Create;
+   ping.Timeout:=tPing.CheckTimeout;
+  while check do
+  begin
+   sleep(tPing.CheckTimeout);
+  if Ping.Ping(tPing.IP) then begin
+      if Ping.ReplyError = IE_NoError then
+       begin
+         t:=Ping.PingTime;
+         tPing.CurrentStat.Attempts:=tPing.CurrentStat.Attempts+1;
+         tPing.CurrentStat.status:=1;
+      end
+      else
+      begin
+        tPing.CurrentStat.loses:=tPing.CurrentStat.loses+1;
+        tPing.CurrentStat.status:=0;
+      end;
+      tPing.CurrentStat.tAttempts:=tPing.CurrentStat.Attempts+tPing.CurrentStat.loses;
+       tPing.CurrentStat.ms := Round(100.0*(tPing.CurrentStat.ms - tPing.CurrentStat.ms/tping.CurrentStat.tAttempts + 1.0*t/tping.CurrentStat.tAttempts));
+      tPing.CurrentStat.ms := tPing.CurrentStat.ms / 100.0;
+  end;
+  end;
+end;
+
+constructor TPingThread.Create(CreateSuspended: boolean; iPing: TPingItem);
+begin
+  FreeOnTerminate := True;
+    inherited Create(CreateSuspended);
+    tPing:=TPingItem.Create(nil);
+    tPing:=iPing;
+end;
+
 {$R *.lfm}
 
 { TForm1 }
@@ -101,6 +159,7 @@ begin
       Storage.LoadFromXmlFile('MP.xml');
       LoadToTreeView();
     end;
+  SetLength(Pings,1);
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -112,6 +171,11 @@ procedure TForm1.Button2Click(Sender: TObject);
 begin
 if not assigned(TreeView1.Selected) then exit;
   RemoveCategory(Sender);
+end;
+
+procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  FreeAndNil(Pings);
 end;
 
 procedure TForm1.ListView1Click(Sender: TObject);
@@ -144,62 +208,67 @@ begin
 end;
 
 procedure TForm1.PingTimerTimer(Sender: TObject);
-var
-  i,j: integer;
-  Ping: TPingSend;
-  tPing: TPingItem;
-  t: integer;
-begin
-  Ping:=TPingSend.Create;
-  for i:=0 to Storage.Count-1 do
-   for j:=0 to Storage.Items[i].PCList.Count-1 do
   begin
-  tPing:=Storage.Items[i].PCList[j];
-  ping.Timeout:=tPing.CheckTimeout;
-  if Ping.Ping(tPing.IP) then begin
-      if Ping.ReplyError = IE_NoError then
-       begin
-         t:=Ping.PingTime;
-         tPing.CurrentStat.Attempts:=tPing.CurrentStat.Attempts+1;
-         tPing.CurrentStat.status:=1;
-      end
-      else
-      begin
-        tPing.CurrentStat.loses:=tPing.CurrentStat.loses+1;
-        tPing.CurrentStat.status:=0;
-      end;
-      tPing.CurrentStat.tAttempts:=tPing.CurrentStat.Attempts+tPing.CurrentStat.loses;
-       tPing.CurrentStat.ms := Round(100.0*(tPing.CurrentStat.ms - tPing.CurrentStat.ms/tping.CurrentStat.tAttempts + 1.0*t/tping.CurrentStat.tAttempts));
-      tPing.CurrentStat.ms := tPing.CurrentStat.ms / 100.0;
+  PingUpdateListView(Storage.Items[index]);
   end;
-  PingUpdateListView(Storage.Items[i]);
-  end;
-end;
 
 procedure TForm1.ToolButton1Click(Sender: TObject);
 var
-  i: integer;
+  i,j,k: integer;
+  mPing: TPingThread;
 begin
   ToolButton1.Enabled:=false;
   ToolButton2.Enabled:=true;
   ToolButton3.Enabled:=true;
   PingTimer.Enabled:=true;
+  if not Check then
+   begin
+  Check:=true;
+  for i:=0 to Storage.Count-1 do
+   for j:=0 to Storage.Items[i].PCList.Count - 1 do
+    begin
+      mPing:=TPingThread.Create(false,Storage.Items[i].PCList[j]);
+      pings[Length(pings)-1]:=mPing;
+      SetLength(Pings,Length(pings));
+    end;
+
+   end else
+   begin
+    For k:=0 to Length(pings)-1 do
+   begin
+    TPingThread(Pings[k]).Suspended:=false;
+   end;
+   end;
 end;
 
 procedure TForm1.ToolButton2Click(Sender: TObject);
+var
+ i: integer;
 begin
   ToolButton1.Enabled:=true;
   ToolButton2.Enabled:=false;
   ToolButton3.Enabled:=true;
-  pingTimer.Enabled:=false;
+  For i:=0 to Length(pings)-1 do
+   begin
+    TPingThread(Pings[i]).Suspended:=true;
+   end;
 end;
 
 procedure TForm1.ToolButton3Click(Sender: TObject);
+var
+ i: integer;
 begin
   ToolButton1.Enabled:=true;
   ToolButton2.Enabled:=false;
   ToolButton3.Enabled:=false;
-  pingTimer.Enabled:=false;
+ // pingTimer.Enabled:=false;
+  check:=false;
+ // for i:= 0 to Length(pings)-1 do
+ //  begin
+ //   Pings[i].Suspended:=true;
+ //   Pings[i].Free;
+ //  end;
+
 end;
 
 procedure TForm1.TreeView1Click(Sender: TObject);
