@@ -45,6 +45,7 @@ object dlgFrm: TdlgFrm
     Top = 144
     Width = 78
     Caption = 'Play sound'
+    Enabled = False
     OnClick = CheckBox1Click
     TabOrder = 2
   end
