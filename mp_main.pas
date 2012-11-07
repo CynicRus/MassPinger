@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,mp_pingthread,PingSend;
+  ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,PingSend;
 
   { TPingerFrm }
  type
@@ -104,7 +104,9 @@ begin
   while check do
   begin
    sleep(tPing.CheckTimeout);
-  if Ping.Ping(tPing.IP) then begin
+  //if tPing.AsHost then
+  if Ping.Ping(tPing.IP) then
+   begin
       if Ping.ReplyError = IE_NoError then
        begin
          t:=Ping.PingTime;
@@ -165,6 +167,7 @@ begin
       Storage.LoadFromXmlFile('MP.xml');
       LoadToTreeView();
     end;
+  //Storage.SaveToXmlFile('MP.XML');
   SetLength(Pings,1);
 end;
 

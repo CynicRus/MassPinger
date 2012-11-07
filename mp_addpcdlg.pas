@@ -17,6 +17,7 @@ type
     Button2: TButton;
     Button3: TButton;
     CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
     edIP: TEdit;
     edMusic: TEdit;
     edPcName: TEdit;
@@ -102,6 +103,8 @@ begin
        end
         else
         PingItem.PlaySound:=0;
+      if CheckBox2.Checked then
+        PingItem.AsHost:=true else PingItem.AsHost:=false;
       PingItem.CheckTimeout:=PingTimeout.Value;
       PingItem.AlarmTimeout:=maxTime.Value;
       self.Hide;

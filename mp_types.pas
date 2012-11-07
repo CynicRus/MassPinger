@@ -22,6 +22,7 @@ type
     PlaySound: integer;
     CheckTimeout: integer;
     AlarmTimeout: integer;
+    AsHost: boolean;
     //not stored
     CurrentStat: TStat;
       constructor Create(Col: TCollection); override;

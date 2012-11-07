@@ -127,6 +127,15 @@ object dlgFrm: TdlgFrm
     OnClick = Button3Click
     TabOrder = 8
   end
+  object CheckBox2: TCheckBox
+    Left = 88
+    Height = 19
+    Top = 72
+    Width = 89
+    Caption = 'As hostname'
+    Enabled = False
+    TabOrder = 9
+  end
   object mDlg: TOpenDialog
     left = 392
     top = 274
