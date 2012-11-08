@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Spin,mp_types,mp_utils;
+  Spin,Process, Sockets,mp_types,mp_utils,httpsend;
 
 type
 
@@ -48,7 +48,34 @@ var
 implementation
 
 {$R *.lfm}
-
+function GetHostIp(AHostName : string) : string;
+var p : TProcess;
+    sl : TStringList;
+    i : integer;
+begin
+  // use nslookup to find IP address of a given host, it use google DNS server so it work regardless
+  // of /etc/resolv.conf where 127.0.0.1 should be anyway
+  result := '';
+  // run nslookup foo.com 8.8.8.8
+  p := TProcess.Create(nil);
+  p.CommandLine := 'nslookup '+AHostName;
+  p.Options := p.Options + [poWaitOnExit, poUsePipes];
+  p.Execute;
+  // parse its output, return first address found
+  sl := TStringList.Create;
+  sl.LoadFromStream(p.Output);
+  for i := 0 to sl.Count-1 do
+      if pos('Address: ',sl[i]) = 1 then
+      begin
+        if sl.Count>=5 then
+         result := copy(sl[i+3],10,maxint) else
+          result := copy(sl[i],10,maxint);
+         break;
+      end;
+  // showmessage(sl.text);
+  sl.Free;
+  p.Free;
+end;
 { TdlgFrm }
 
 procedure TdlgFrm.CheckBox1Click(Sender: TObject);
@@ -95,7 +122,9 @@ begin
   if Ok then
     begin
     PingItem.Name:=edPcName.Text;
-    PingItem.IP:=edIp.Text;
+    if CheckBox2.Checked then
+        PingItem.IP:=GetHostIP(edIp.Text) else PingItem.IP:=edIp.Text;
+
     if CheckBox1.Checked then
       begin
         PingItem.PlaySound:=1;
@@ -103,9 +132,8 @@ begin
        end
         else
         PingItem.PlaySound:=0;
-      if CheckBox2.Checked then
-        PingItem.AsHost:=true else PingItem.AsHost:=false;
-      PingItem.CheckTimeout:=PingTimeout.Value;
+      if not CheckBox2.Checked then
+      PingItem.CheckTimeout:=PingTimeout.Value else PingItem.CheckTimeout:=5000;
       PingItem.AlarmTimeout:=maxTime.Value;
       self.Hide;
     end else ShowMessage('fill in all fields!');

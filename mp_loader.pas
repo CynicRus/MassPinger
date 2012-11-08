@@ -37,7 +37,7 @@ procedure TMPStorage.LoadFromXmlFile(aFileName: string);
         oPingItem.AlarmTimeout   := StrToInt(VarToStr(oNode.Attributes.GetNamedItem('alarm').NodeValue));
         oPingItem.CheckTimeout:= StrToInt(VarToStr(oNode.Attributes.GetNamedItem('timeout').NodeValue));
         oPingItem.PlaySound:= StrToInt(VarToStr(oNode.Attributes.GetNamedItem('play').NodeValue));
-         oPingItem.ashost:= StrTobool(VarToStr(oNode.Attributes.GetNamedItem('ashost').NodeValue));
+     //    oPingItem.ashost:= StrTobool(VarToStr(oNode.Attributes.GetNamedItem('ashost').NodeValue));
       end;
     end;
 
@@ -99,7 +99,7 @@ procedure TMPStorage.SaveToXmlFile(aFileName: string);
                 TDOMElement(PingItemNode).SetAttribute('alarm',intToStr(oPingItem.AlarmTimeout));
                 TDOMElement(PingItemNode).SetAttribute('play',IntToStr(oPingItem.PlaySound));
                 TDOMElement(PingItemNode).SetAttribute('timeout',IntToStr(oPingItem.CheckTimeout));
-                TDOMElement(PingItemNode).SetAttribute('ashost',BoolToStr(oPingItem.AsHost));
+         //       TDOMElement(PingItemNode).SetAttribute('ashost',BoolToStr(oPingItem.AsHost));
                 NetworkNode.AppendChild(PingItemNode);
               end;
          vRoot.AppendChild(NetworkNode);

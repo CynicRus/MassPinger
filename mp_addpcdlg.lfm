@@ -28,8 +28,8 @@ object dlgFrm: TdlgFrm
     Left = 16
     Height = 16
     Top = 72
-    Width = 14
-    Caption = 'IP:'
+    Width = 86
+    Caption = 'IP or Hostname:'
     ParentColor = False
   end
   object edIP: TEdit
@@ -133,8 +133,8 @@ object dlgFrm: TdlgFrm
     Top = 72
     Width = 89
     Caption = 'As hostname'
-    Enabled = False
     TabOrder = 9
+    Visible = False
   end
   object mDlg: TOpenDialog
     left = 392

@@ -3,12 +3,15 @@ object PingerFrm: TPingerFrm
   Height = 570
   Top = 285
   Width = 731
+  BorderStyle = bsToolWindow
   ClientHeight = 550
   ClientWidth = 731
   Menu = MainMenu1
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnResize = FormResize
+  ShowInTaskBar = stNever
   LCLVersion = '0.9.30.4'
   object GroupBox1: TGroupBox
     Left = 0
@@ -55,7 +58,23 @@ object PingerFrm: TPingerFrm
     Height = 23
     Top = 527
     Width = 731
-    Panels = <>
+    Panels = <    
+      item
+        Width = 100
+      end    
+      item
+        Width = 100
+      end    
+      item
+        Width = 100
+      end    
+      item
+        Width = 100
+      end    
+      item
+        Width = 50
+      end>
+    SimplePanel = False
   end
   object GroupBox2: TGroupBox
     Left = 192
@@ -89,7 +108,7 @@ object PingerFrm: TPingerFrm
               Width = 85
             end          
             item
-              Caption = 'IP'
+              Caption = 'IP/Hostname:'
               Width = 110
             end          
             item
@@ -111,21 +130,8 @@ object PingerFrm: TPingerFrm
           ReadOnly = True
           TabOrder = 0
           ViewStyle = vsReport
+          OnCustomDrawItem = ListView1CustomDrawItem
           OnMouseDown = ListView1MouseDown
-        end
-      end
-      object TabSheet2: TTabSheet
-        Caption = 'Log'
-        ClientHeight = 452
-        ClientWidth = 512
-        object Memo1: TMemo
-          Left = 4
-          Height = 434
-          Top = 8
-          Width = 502
-          ReadOnly = True
-          ScrollBars = ssVertical
-          TabOrder = 0
         end
       end
     end
@@ -287,6 +293,7 @@ object PingerFrm: TPingerFrm
     }
   end
   object PingTimer: TTimer
+    Enabled = False
     OnTimer = PingTimerTimer
     left = 94
     top = 187

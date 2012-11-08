@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,PingSend;
+  ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,mp_utils,PingSend{$IFDEF WINDOWS},Win32Int, InterfaceBase,windows{$ENDIF};
 
   { TPingerFrm }
  type
@@ -15,7 +15,6 @@ uses
     Button2: TButton;
     GroupBox1: TGroupBox;
     GroupBox2: TGroupBox;
-    Memo1: TMemo;
     MenuItem5: TMenuItem;
     MenuItem6: TMenuItem;
     pingList: TImageList;
@@ -30,7 +29,6 @@ uses
     HideMenu: TPopupMenu;
     StatusBar1: TStatusBar;
     TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
     PingTimer: TTimer;
     ToolBar1: TToolBar;
     ToolButton1: TToolButton;
@@ -43,7 +41,9 @@ uses
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure ListView1Click(Sender: TObject);
+    procedure FormResize(Sender: TObject);
+    procedure ListView1CustomDrawItem(Sender: TCustomListView; Item: TListItem;
+      State: TCustomDrawState; var DefaultDraw: Boolean);
     procedure ListView1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure MenuItem2Click(Sender: TObject);
@@ -66,6 +66,7 @@ uses
     procedure RemovePC(Sender: TObject);
     procedure AddCategory(Sender: TObject);
     procedure RemoveCategory(Sender: TObject);
+    procedure UpdateStats;
     { public declarations }
   end; 
 type
@@ -138,9 +139,11 @@ end;
 { TPingerFrm }
 
 procedure TPingerFrm.FormCreate(Sender: TObject);
+//var
 //  tPing: TPingItem;
 //  tNetwItem: TNetworkItem;
 //  frm: TAddCpuDialog;
+//tPing: TPingSend;
 begin
   Storage:= TMPStorage.Create;
   ToolButton2.Enabled:=false;
@@ -167,6 +170,8 @@ begin
       Storage.LoadFromXmlFile('MP.xml');
       LoadToTreeView();
     end;
+  ti.show;
+  self.ShowInTaskBar:=stNever;
   //Storage.SaveToXmlFile('MP.XML');
   SetLength(Pings,1);
 end;
@@ -177,6 +182,11 @@ begin
    sleep(500);
    pings:=nil;
 //  FreeAndNil(Pings);
+end;
+
+procedure TPingerFrm.FormResize(Sender: TObject);
+begin
+
 end;
 
 procedure TPingerFrm.Button1Click(Sender: TObject);
@@ -194,14 +204,25 @@ procedure TPingerFrm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   Minimized:=true;
   CloseAction := caNone;
-  Application.Minimize;
+  {$IFDEF WINDOWS}ShowWindow(TWin32Widgetset(Widgetset).AppHandle, SW_HIDE){$ELSE}application.minimize {$ENDIF};                      Application.Minimize;
+ // self.ShowInTaskBar:=stNever;
   ti.show;
 end;
 
-procedure TPingerFrm.ListView1Click(Sender: TObject);
-begin
 
+procedure TPingerFrm.ListView1CustomDrawItem(Sender: TCustomListView;
+  Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+begin
+{  if eq(Item.SubItems.Objects[4].ToString,'Offline') then {номер сабитема}
+  begin
+    Sender.Canvas.Brush.Color:=clInfoBk;
+    Sender.Canvas.Font.Color:=clRed;
+    Sender.Canvas.FillRect(rect(Item.Left,Item.Top, Item.Left,Item.Top)); {странно, но без этого не работает}
+  end }
 end;
+
+
+
 
 procedure TPingerFrm.ListView1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
@@ -225,13 +246,14 @@ end;
 procedure TPingerFrm.MenuItem2Click(Sender: TObject);
 begin
   Minimized:=true;
-  Application.Minimize;
+ // self.Visible:=false;
+  {$IFDEF WINDOWS}ShowWindow(TWin32Widgetset(Widgetset).AppHandle, SW_HIDE){$ELSE}application.minimize {$ENDIF};
   ti.show;
 end;
 
 procedure TPingerFrm.MenuItem3Click(Sender: TObject);
 begin
-  HideMenu.Items[0].Click;
+  HideMenu.Items[1].Click;
 end;
 
 procedure TPingerFrm.MenuItem4Click(Sender: TObject);
@@ -248,13 +270,20 @@ end;
 procedure TPingerFrm.MenuItem6Click(Sender: TObject);
 begin
   Minimized:=false;
-  Application.Restore;
-//  Self.Show;
-  ti.Hide;
+//  self.ShowInTaskBar:=stAlways;
+  //Application.Restore;
+  {$IFDEF WINDOWS}ShowWindow(TWin32Widgetset(Widgetset).AppHandle, SW_RESTORE){$ELSE}application.restore {$ENDIF};
+ { Self.Width:=731;
+  Self.Height:=570;
+  Self.Left:=409;
+  Self.Top:=285;}
+ // Self.Show;
+ // ti.Hide;
 end;
 
 procedure TPingerFrm.PingTimerTimer(Sender: TObject);
   begin
+  if not (storage.Count > 0) then exit;
   PingUpdateListView(Storage.Items[index]);
   end;
 
@@ -263,6 +292,7 @@ var
   i,j,k: integer;
   mPing: TPingThread;
 begin
+  if not (storage.Count > 0) then exit;
   ToolButton1.Enabled:=false;
   ToolButton2.Enabled:=true;
   ToolButton3.Enabled:=true;
@@ -317,7 +347,8 @@ begin
  //   Pings[i].Suspended:=true;
  //   Pings[i].Free;
  //  end;
-
+  sleep(1000);
+  PingTimer.Enabled:=false;
 end;
 
 procedure TPingerFrm.TreeView1Click(Sender: TObject);
@@ -390,14 +421,15 @@ begin
     else
      begin
     oListItem.SubItems.Add('Offline') ;
-    if Minimized and Check then
+    if Check then
     begin
      ti.BalloonHint:=oPingItem.name + #32 +'is offline now! Please check that!';
      ti.ShowBalloonHint;
      end;
-  end;
-  end;
 
+  end;
+  end;
+ UpdateStats;
 end;
 
 procedure TPingerFrm.AddPC(Sender: TObject);
@@ -405,7 +437,7 @@ var
   frm: TAddCpuDialog;
   tPing: TPingItem;
 begin
-  if not storage.Count > 0 then exit;
+  if not (storage.Count > 0) then exit;
   tPing:=Storage.Items[index].PCList.AddItem;
   frm:=TAddCpuDialog.Create(self);
   if frm.Execute then
@@ -416,7 +448,7 @@ begin
    tPing.PlaySound:=frm.MainForm.PingItem.PlaySound;
    tPing.CheckTimeout:=frm.MainForm.PingItem.CheckTimeout;
    tPing.AlarmTimeout:=frm.MainForm.PingItem.AlarmTimeout;
-   end;
+   end else begin self.Show; Exit; end;
   frm.Free;
   self.Show;
   Storage.SaveToXmlFile('MP.xml');
@@ -425,7 +457,7 @@ end;
 
 procedure TPingerFrm.RemovePC(Sender: TObject);
 begin
-  if storage.Count > 0 then exit;
+  if not (storage.Count > 0) then exit;
   storage.Items[index].PCList.Delete(ListView1.Selected.Index);
   Storage.SaveToXmlFile('MP.xml');
   LoadToTreeView();
@@ -446,7 +478,7 @@ end;
 procedure TPingerFrm.RemoveCategory(Sender: TObject);
 begin
   Storage.Delete(TreeView1.Selected.Index);
-  if storage.Count > 0 then
+  if (storage.Count > 0) then
    begin
     Storage.SaveToXmlFile('MP.xml');
    index:=0;
@@ -460,7 +492,38 @@ begin
   end;
 end;
 
-//end;
+procedure TPingerFrm.UpdateStats;
+var
+  i,j: integer;
+  oPing: TPingItem;
+  Group,Cpus,Live,Dead: integer;
+begin
+  Group:=0;
+  Cpus:=0;
+  Live:=0;
+  Dead:=0;
+  for i:=0 to Storage.Count -1 do
+   begin
+      Inc(Group);
+       for j:=0 to Storage.Items[i].PCList.Count-1 do
+        begin
+          Inc(Cpus);
+          oPing:=Storage.Items[i].PCList[j];
+          if oPing.CurrentStat.status > 0 then
+    inc(live)
+    else
+    inc(dead)
+        end;
+   end;
+ with StatusBar1 do
+  begin
+   Panels[0].Text:='Groups:'+#13+IntToStr(Group);
+   Panels[1].Text:='PC:'+#13+IntToStr(Cpus);
+   Panels[2].Text:='Online:'+#13+IntToStr(live);
+   Panels[3].Text:='Offline:'+#13+IntToStr(dead);
+end;
+
+end;
 
 end.
 
