@@ -142,7 +142,7 @@ begin
       if not CheckBox2.Checked then
       PingItem.CheckTimeout:=PingTimeout.Value else PingItem.CheckTimeout:=5000;
       PingItem.AlarmTimeout:=maxTime.Value;
-      self.Hide;
+      {$IFDEF WINDOWS}self.Hide{$ELSE}self.Close{$ENDIF};
     end else ShowMessage('fill in all fields!');
 
 end;

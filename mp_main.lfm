@@ -4,7 +4,7 @@ object PingerFrm: TPingerFrm
   Top = 285
   Width = 731
   BorderStyle = bsToolWindow
-  ClientHeight = 550
+  ClientHeight = 547
   ClientWidth = 731
   Menu = MainMenu1
   OnActivate = FormActivate
@@ -13,14 +13,14 @@ object PingerFrm: TPingerFrm
   OnDestroy = FormDestroy
   OnResize = FormResize
   ShowInTaskBar = stNever
-  LCLVersion = '0.9.30.4'
+  LCLVersion = '1.1'
   object GroupBox1: TGroupBox
     Left = 0
     Height = 504
     Top = 24
     Width = 192
     Caption = 'Groups:'
-    ClientHeight = 486
+    ClientHeight = 485
     ClientWidth = 188
     TabOrder = 0
     object TreeView1: TTreeView
@@ -28,7 +28,6 @@ object PingerFrm: TPingerFrm
       Height = 448
       Top = 0
       Width = 177
-      DefaultItemHeight = 17
       ReadOnly = True
       ScrollBars = ssVertical
       TabOrder = 0
@@ -56,8 +55,8 @@ object PingerFrm: TPingerFrm
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 527
+    Height = 21
+    Top = 526
     Width = 731
     Panels = <    
       item
@@ -83,7 +82,7 @@ object PingerFrm: TPingerFrm
     Top = 24
     Width = 536
     Caption = 'Workstations:'
-    ClientHeight = 486
+    ClientHeight = 485
     ClientWidth = 532
     TabOrder = 2
     object PageControl1: TPageControl
@@ -96,8 +95,8 @@ object PingerFrm: TPingerFrm
       TabOrder = 0
       object TabSheet1: TTabSheet
         Caption = 'Info'
-        ClientHeight = 452
-        ClientWidth = 512
+        ClientHeight = 449
+        ClientWidth = 516
         object ListView1: TListView
           Left = 4
           Height = 438
@@ -355,4 +354,4 @@ object PingerFrm: TPingerFrm
       OnClick = MenuItem5Click
     end
   end
-end
+end

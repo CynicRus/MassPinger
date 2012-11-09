@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,mp_utils,PingSend{$IFDEF WINDOWS},Win32Int, InterfaceBase,windows{$ENDIF};
+  ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,PingSend{$IFDEF WINDOWS},Win32Int, InterfaceBase,windows{$ENDIF};
 
   { TPingerFrm }
  type
@@ -451,12 +451,13 @@ end;
 procedure TPingerFrm.AddPC(Sender: TObject);
 var
   frm: TAddCpuDialog;
+  //frm: TDlgFrm;
   tPing: TPingItem;
 begin
  if check then exit;
   if not (storage.Count > 0) then exit;
   tPing:=Storage.Items[index].PCList.AddItem;
-  frm:=TAddCpuDialog.Create(self);
+ frm:=TAddCpuDialog.Create(self);
   if frm.Execute then
    begin
    tPing.Name:=frm.MainForm.PingItem.Name;
@@ -465,6 +466,7 @@ begin
    tPing.PlaySound:=frm.MainForm.PingItem.PlaySound;
    tPing.CheckTimeout:=frm.MainForm.PingItem.CheckTimeout;
    tPing.AlarmTimeout:=frm.MainForm.PingItem.AlarmTimeout;
+   frm.MainForm.Close;
    end else begin self.Show; Exit; end;
   frm.Free;
   self.Show;
@@ -546,4 +548,4 @@ end;
 end;
 
 end.
-
+
