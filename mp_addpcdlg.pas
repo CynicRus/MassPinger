@@ -33,6 +33,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure CheckBox1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
     { private declarations }
@@ -92,6 +93,12 @@ begin
    end;
 end;
 
+procedure TdlgFrm.FormActivate(Sender: TObject);
+begin
+//  self.ShowModal;
+  SetFocus;
+end;
+
 procedure TdlgFrm.FormCreate(Sender: TObject);
 begin
   CheckBox1Click(sender);
@@ -146,4 +153,4 @@ begin
 end;
 
 end.
-
+

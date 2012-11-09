@@ -3,9 +3,9 @@ program MassPinger;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, mp_main, mp_types, mp_loader, mp_utils,
   laz_synapse, mp_addpcdlg, mp_addpcdlgu;
@@ -18,4 +18,4 @@ begin
   Application.CreateForm(TdlgFrm, dlgFrm);
   Application.Run;
 end.
-
+

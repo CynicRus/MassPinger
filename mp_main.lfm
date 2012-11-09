@@ -7,6 +7,7 @@ object PingerFrm: TPingerFrm
   ClientHeight = 550
   ClientWidth = 731
   Menu = MainMenu1
+  OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
   OnDestroy = FormDestroy
@@ -125,7 +126,7 @@ object PingerFrm: TPingerFrm
             end          
             item
               Caption = 'Current status:'
-              Width = 100
+              Width = 104
             end>
           ReadOnly = True
           TabOrder = 0

@@ -38,6 +38,7 @@ uses
     TreeView1: TTreeView;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -61,7 +62,7 @@ uses
   public
     procedure LoadToTreeView();
     procedure LoadGroupToListView(aGroup: TNetworkItem);
-    procedure PingUpdateListView(aGroup: TNetworkItem);
+    procedure PingUpdateListView();
     procedure AddPC(Sender: TObject);
     procedure RemovePC(Sender: TObject);
     procedure AddCategory(Sender: TObject);
@@ -78,6 +79,7 @@ TPingThread = class(TThread)
     procedure Execute; override;
   public
     tPing: TPingItem;
+   // procedure Update;
     Constructor Create(CreateSuspended : boolean;iPing: TPingItem);
   end;
 
@@ -88,9 +90,10 @@ var
   Check: boolean = false;
   Minimized: boolean = false;
   Pings: Array of TPingThread;
+  cs: TRTLCriticalSection;
 
 implementation
-uses mp_addpcdlgu;
+uses mp_addpcdlgu,syncobjs;
 
 { TPingThread }
 
@@ -101,6 +104,7 @@ var
 begin
  // inherited Execute();
    Ping:=TPingSend.Create;
+ //  EnterCriticalSection(cs);
    ping.Timeout:=tPing.CheckTimeout;
   while check do
   begin
@@ -123,6 +127,9 @@ begin
        tPing.CurrentStat.ms := Round(100.0*(tPing.CurrentStat.ms - tPing.CurrentStat.ms/tping.CurrentStat.tAttempts + 1.0*t/tping.CurrentStat.tAttempts));
       tPing.CurrentStat.ms := tPing.CurrentStat.ms / 100.0;
   end;
+ // Application.ProcessMessages;
+//  LeaveCriticalSection(cs);
+// Synchronize(@update);
   end;
 end;
 
@@ -148,6 +155,7 @@ begin
   Storage:= TMPStorage.Create;
   ToolButton2.Enabled:=false;
   ToolButton3.Enabled:=false;
+  index:=0;
 {  tNetwItem:=Storage.AddItem ;
   tNetwItem.Name:='DC';
  // Storage.LoadFromXmlFile('MP.xml');
@@ -173,7 +181,8 @@ begin
   ti.show;
   self.ShowInTaskBar:=stNever;
   //Storage.SaveToXmlFile('MP.XML');
-  SetLength(Pings,1);
+  SetLength(Pings,0);
+ // StatusBar1.Panels[0].Text:=IntToStr(Storage.Count);
 end;
 
 procedure TPingerFrm.FormDestroy(Sender: TObject);
@@ -198,6 +207,11 @@ procedure TPingerFrm.Button2Click(Sender: TObject);
 begin
 if not assigned(TreeView1.Selected) then exit;
   RemoveCategory(Sender);
+end;
+
+procedure TPingerFrm.FormActivate(Sender: TObject);
+begin
+  SetFocus;
 end;
 
 procedure TPingerFrm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
@@ -284,7 +298,8 @@ end;
 procedure TPingerFrm.PingTimerTimer(Sender: TObject);
   begin
   if not (storage.Count > 0) then exit;
-  PingUpdateListView(Storage.Items[index]);
+ //  EnterCriticalSection(cs);
+   PingUpdateListView;
   end;
 
 procedure TPingerFrm.ToolButton1Click(Sender: TObject);
@@ -296,38 +311,35 @@ begin
   ToolButton1.Enabled:=false;
   ToolButton2.Enabled:=true;
   ToolButton3.Enabled:=true;
-  PingTimer.Enabled:=true;
   if not Check then
    begin
   Check:=true;
   for i:=0 to Storage.Count-1 do
    for j:=0 to Storage.Items[i].PCList.Count - 1 do
     begin
-    PingTimer.Enabled:=true;
+     SetLength(Pings,Length(pings)+1);
       mPing:=TPingThread.Create(false,Storage.Items[i].PCList[j]);
       pings[Length(pings)-1]:=mPing;
-      SetLength(Pings,Length(pings));
+      //SetLength(Pings,Length(pings));
     end;
 
-   end else
-   begin
-    For k:=0 to Length(pings)-1 do
-   begin
-    TPingThread(Pings[k]).Suspended:=false;
    end;
+  PingTimer.Enabled:=true;
+  {$IFNDEF WINDOWS}Application.ProcessMessages;{$ENDIF}
+
    end;
-end;
 
 procedure TPingerFrm.ToolButton2Click(Sender: TObject);
 var
  i: integer;
 begin
+{$IFNDEF WINDOWS}Application.ProcessMessages;{$ENDIF}
   ToolButton1.Enabled:=true;
   ToolButton2.Enabled:=false;
   ToolButton3.Enabled:=true;
   For i:=0 to Length(pings)-1 do
    begin
-    TPingThread(Pings[i]).Suspended:=true;
+   // TPingThread(Pings[i]).Suspended:=true;
    end;
   PingTimer.Enabled:=false;
 end;
@@ -336,19 +348,21 @@ procedure TPingerFrm.ToolButton3Click(Sender: TObject);
 var
  i: integer;
 begin
-  PingTimer.Enabled:=true;
+   {$IFNDEF WINDOWS}Application.ProcessMessages;{$ENDIF}
+  //PingTimer.Enabled:=true;
+
+ // pingTimer.Enabled:=false;
+  check:=false;
+  for i:= 0 to Length(pings)-1 do
+   begin
+   // Pings[i].Free;
+   end;
+  sleep(1000);
+  PingTimer.Enabled:=false;
   ToolButton1.Enabled:=true;
   ToolButton2.Enabled:=false;
   ToolButton3.Enabled:=false;
- // pingTimer.Enabled:=false;
-  check:=false;
- // for i:= 0 to Length(pings)-1 do
- //  begin
- //   Pings[i].Suspended:=true;
- //   Pings[i].Free;
- //  end;
-  sleep(1000);
-  PingTimer.Enabled:=false;
+ // Application.ProcessMessages;
 end;
 
 procedure TPingerFrm.TreeView1Click(Sender: TObject);
@@ -399,13 +413,15 @@ begin
   end;
   end;
 
-procedure TPingerFrm.PingUpdateListView(aGroup: TNetworkItem);
+procedure TPingerFrm.PingUpdateListView();
 var
   I: Integer;
   oListItem: TListItem;
   oPingItem: TPingItem;
+  aGroup: TNetworkItem;
 begin
   ListView1.Items.Clear;
+  aGroup:=Storage.Items[index];
   for I := 0 to aGroup.PCList.Count - 1 do
   begin
     oListItem:= ListView1.Items.Add;
@@ -437,6 +453,7 @@ var
   frm: TAddCpuDialog;
   tPing: TPingItem;
 begin
+ if check then exit;
   if not (storage.Count > 0) then exit;
   tPing:=Storage.Items[index].PCList.AddItem;
   frm:=TAddCpuDialog.Create(self);
@@ -458,6 +475,7 @@ end;
 procedure TPingerFrm.RemovePC(Sender: TObject);
 begin
   if not (storage.Count > 0) then exit;
+  if check then exit;
   storage.Items[index].PCList.Delete(ListView1.Selected.Index);
   Storage.SaveToXmlFile('MP.xml');
   LoadToTreeView();
@@ -468,15 +486,17 @@ var
   Net: TNetworkItem;
   UserString: string;
 begin
+  if check then exit;
   Net:=Storage.AddItem;
- if InputQuery('Add new group:', 'Type in new group name', false, UserString)
-  then Net.Name:=UserString;
+ if InputQuery('Add new group:', 'Type in new group name', UserString)
+  then Net.Name:=UserString else exit;
    Storage.SaveToXmlFile('MP.xml');
   LoadToTreeView();
 end;
 
 procedure TPingerFrm.RemoveCategory(Sender: TObject);
 begin
+ if check then exit;
   Storage.Delete(TreeView1.Selected.Index);
   if (storage.Count > 0) then
    begin
