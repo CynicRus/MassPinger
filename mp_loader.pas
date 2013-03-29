@@ -80,7 +80,7 @@ procedure TMPStorage.SaveToXmlFile(aFileName: string);
     oPingItem: TPingItem;
   begin
     oXmlDocument:=TXmlDocument.Create;
-    oXmlDocument.Encoding:='UTF-8';
+  //  oXmlDocument.Encoding:='UTF-8';
     vRoot:=oXmlDocument.CreateElement('Document');
     oXmlDocument.AppendChild(vroot);
     vRoot:=oXMLDocument.DocumentElement;

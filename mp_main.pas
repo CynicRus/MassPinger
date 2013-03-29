@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,PingSend{$IFDEF WINDOWS},Win32Int, InterfaceBase,windows{$ENDIF};
+  ComCtrls, Menus, ExtCtrls, mp_loader,mp_types,PingSend{$IFDEF WINDOWS},Win32Int, InterfaceBase,Windows{$ENDIF};
 
   { TPingerFrm }
  type
@@ -83,6 +83,16 @@ TPingThread = class(TThread)
     Constructor Create(CreateSuspended : boolean;iPing: TPingItem);
   end;
 
+TCheckingThread = class(TThread)
+  protected
+    procedure Execute; override;
+  public
+    msg: string;
+    Constructor Create(CreateSuspended : boolean);
+    procedure ShowWarning;
+  end;
+
+
 var
   PingerFrm: TPingerFrm;
   index: integer = 0;
@@ -140,6 +150,39 @@ begin
     tPing:=TPingItem.Create(nil);
     tPing:=iPing;
 end;
+procedure TCheckingThread.ShowWarning;
+begin
+     pingerfrm.ti.BalloonHint:=msg + #32 +'is offline now! Please check that!';
+     pingerfrm.ti.ShowBalloonHint;
+end;
+
+procedure TCheckingThread.Execute;
+var
+  I,j: Integer;
+  oListItem: TListItem;
+  aGroup: TNetworkItem;
+begin
+  while check do
+  for i:=0 to Storage.Count-1 do
+  aGroup:=Storage.Items[i];
+  for j := 0 to aGroup.PCList.Count - 1 do
+  begin
+    if not (aGroup.PCList[j].CurrentStat.status > 0) then
+     begin
+   // oListItem.SubItems.Add('Offline') ;
+        msg:=aGroup.PCList[j].name;
+        synchronize(@ShowWarning);
+     end;
+ end;
+end;
+
+
+constructor TCheckingThread.Create(CreateSuspended: boolean);
+begin
+  FreeOnTerminate := True;
+    inherited Create(CreateSuspended);
+
+end;
 
 {$R *.lfm}
 
@@ -172,7 +215,7 @@ begin
    tPing.AlarmTimeout:=frm.MainForm.PingItem.AlarmTimeout;
    end;
   Storage.SaveToXmlFile('MP.xml');}
-  self.Caption:='Mass Pinger v 1.0 by Cynic'+#32+{$IFDEF WINDOWS}'[WIN]' {$ELSE}'[LIN]'{$ENDIF};
+  self.Caption:='Mass Pinger v 1.1 by Cynic'+#32+{$IFDEF WINDOWS}'[WIN]' {$ELSE}'[LIN]'{$ENDIF};
   if fileexists('MP.xml') then
     begin
       Storage.LoadFromXmlFile('MP.xml');
@@ -437,11 +480,11 @@ begin
     else
      begin
     oListItem.SubItems.Add('Offline') ;
-    if Check then
-    begin
-     ti.BalloonHint:=oPingItem.name + #32 +'is offline now! Please check that!';
-     ti.ShowBalloonHint;
-     end;
+    //if Check then
+   // begin
+     //ti.BalloonHint:=oPingItem.name + #32 +'is offline now! Please check that!';
+    // ti.ShowBalloonHint;
+   //  end;
 
   end;
   end;
@@ -548,4 +591,4 @@ end;
 end;
 
 end.
-
+
