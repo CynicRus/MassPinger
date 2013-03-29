@@ -30,15 +30,12 @@
         <LaunchingApplication PathPlusParams="\usr\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="1">
       <Item1>
-        <PackageName Value="laz_synapse"/>
-      </Item1>
-      <Item2>
         <PackageName Value="LCL"/>
-      </Item2>
+      </Item1>
     </RequiredPackages>
-    <Units Count="34">
+    <Units Count="35">
       <Unit0>
         <Filename Value="MassPinger.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -46,8 +43,8 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="11" Y="8"/>
-        <UsageCount Value="87"/>
+        <CursorPos X="3" Y="21"/>
+        <UsageCount Value="88"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -57,12 +54,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="mp_main"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="445"/>
-        <CursorPos X="23" Y="446"/>
-        <FoldState Value=" T1mR0F~"/>
-        <UsageCount Value="87"/>
+        <TopLine Value="141"/>
+        <CursorPos X="35" Y="155"/>
+        <UsageCount Value="88"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -74,7 +71,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="30" Y="34"/>
-        <UsageCount Value="87"/>
+        <UsageCount Value="88"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -83,9 +80,9 @@
         <UnitName Value="mp_loader"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="73"/>
-        <CursorPos X="12" Y="102"/>
-        <UsageCount Value="87"/>
+        <TopLine Value="1"/>
+        <CursorPos X="2" Y="80"/>
+        <UsageCount Value="88"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -126,7 +123,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
         <CursorPos X="1" Y="115"/>
-        <UsageCount Value="87"/>
+        <UsageCount Value="88"/>
       </Unit8>
       <Unit9>
         <Filename Value="D:\LazSynapse\source\lib\pingsend.pas"/>
@@ -153,12 +150,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="mp_addpcdlg"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="119"/>
         <CursorPos X="56" Y="145"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="66"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit11>
@@ -185,7 +181,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="11"/>
         <CursorPos X="19" Y="16"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="85"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -242,7 +238,7 @@
       <Unit22>
         <Filename Value="mp_addpcdlg.lfm"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="66"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit22>
       <Unit23>
@@ -326,127 +322,133 @@
         <CursorPos X="1" Y="394"/>
         <UsageCount Value="10"/>
       </Unit33>
+      <Unit34>
+        <Filename Value="Synapse\httpsend.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="httpsend"/>
+        <UsageCount Value="21"/>
+      </Unit34>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="mp_types.pas"/>
-        <Caret Line="34" Column="30" TopLine="25"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="211" Column="3" TopLine="209"/>
       </Position1>
       <Position2>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="306" Column="25" TopLine="280"/>
+        <Caret Line="129" Column="28" TopLine="97"/>
       </Position2>
       <Position3>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="315" Column="29" TopLine="292"/>
+        <Caret Line="182" Column="22" TopLine="91"/>
       </Position3>
       <Position4>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="181" Column="32" TopLine="153"/>
+        <Caret Line="190" Column="15" TopLine="171"/>
       </Position4>
       <Position5>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="211" Column="3" TopLine="209"/>
+        <Caret Line="81" Column="4" TopLine="59"/>
       </Position5>
       <Position6>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="129" Column="28" TopLine="97"/>
+        <Caret Line="310" Column="1" TopLine="281"/>
       </Position6>
       <Position7>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="182" Column="22" TopLine="91"/>
+        <Caret Line="481" Column="8" TopLine="451"/>
       </Position7>
       <Position8>
-        <Filename Value="mp_main.pas"/>
-        <Caret Line="190" Column="15" TopLine="171"/>
+        <Filename Value="mp_addpcdlg.pas"/>
+        <Caret Line="106" Column="39" TopLine="85"/>
       </Position8>
       <Position9>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="81" Column="4" TopLine="59"/>
+        <Caret Line="455" Column="2" TopLine="437"/>
       </Position9>
       <Position10>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="310" Column="1" TopLine="281"/>
+        <Caret Line="240" Column="43" TopLine="211"/>
       </Position10>
       <Position11>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="481" Column="8" TopLine="451"/>
+        <Caret Line="130" Column="3" TopLine="118"/>
       </Position11>
       <Position12>
-        <Filename Value="mp_addpcdlg.pas"/>
-        <Caret Line="106" Column="39" TopLine="85"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="474" Column="32" TopLine="445"/>
       </Position12>
       <Position13>
-        <Filename Value="mp_main.pas"/>
-        <Caret Line="455" Column="2" TopLine="437"/>
+        <Filename Value="mp_addpcdlgu.pas"/>
+        <Caret Line="42" Column="2" TopLine="10"/>
       </Position13>
       <Position14>
-        <Filename Value="mp_main.pas"/>
-        <Caret Line="240" Column="43" TopLine="211"/>
+        <Filename Value="mp_addpcdlgu.pas"/>
+        <Caret Line="16" Column="5" TopLine="1"/>
       </Position14>
       <Position15>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="130" Column="3" TopLine="118"/>
+        <Caret Line="460" Column="26" TopLine="445"/>
       </Position15>
       <Position16>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="474" Column="32" TopLine="445"/>
+        <Caret Line="472" Column="18" TopLine="442"/>
       </Position16>
       <Position17>
-        <Filename Value="mp_addpcdlgu.pas"/>
-        <Caret Line="42" Column="2" TopLine="10"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="454" Column="22" TopLine="442"/>
       </Position17>
       <Position18>
-        <Filename Value="mp_addpcdlgu.pas"/>
-        <Caret Line="16" Column="5" TopLine="1"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="460" Column="1" TopLine="453"/>
       </Position18>
       <Position19>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="460" Column="26" TopLine="445"/>
+        <Caret Line="96" Column="6" TopLine="82"/>
       </Position19>
       <Position20>
-        <Filename Value="mp_main.pas"/>
-        <Caret Line="472" Column="18" TopLine="442"/>
+        <Filename Value="mp_addpcdlgu.pas"/>
+        <Caret Line="16" Column="19" TopLine="11"/>
       </Position20>
       <Position21>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="454" Column="22" TopLine="442"/>
+        <Caret Line="454" Column="5" TopLine="342"/>
       </Position21>
       <Position22>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="460" Column="1" TopLine="453"/>
+        <Caret Line="351" Column="4" TopLine="347"/>
       </Position22>
       <Position23>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="96" Column="6" TopLine="82"/>
+        <Caret Line="457" Column="1" TopLine="438"/>
       </Position23>
       <Position24>
-        <Filename Value="mp_addpcdlgu.pas"/>
-        <Caret Line="16" Column="19" TopLine="11"/>
+        <Filename Value="mp_main.pas"/>
+        <Caret Line="458" Column="1" TopLine="438"/>
       </Position24>
       <Position25>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="454" Column="5" TopLine="342"/>
+        <Caret Line="459" Column="1" TopLine="438"/>
       </Position25>
       <Position26>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="351" Column="4" TopLine="347"/>
+        <Caret Line="460" Column="1" TopLine="438"/>
       </Position26>
       <Position27>
-        <Filename Value="mp_main.pas"/>
-        <Caret Line="457" Column="1" TopLine="438"/>
+        <Filename Value="mp_loader.pas"/>
+        <Caret Line="102" Column="12" TopLine="73"/>
       </Position27>
       <Position28>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="458" Column="1" TopLine="438"/>
+        <Caret Line="90" Column="20" TopLine="76"/>
       </Position28>
       <Position29>
-        <Filename Value="mp_main.pas"/>
-        <Caret Line="459" Column="1" TopLine="438"/>
+        <Filename Value="MassPinger.lpr"/>
+        <Caret Line="8" Column="11" TopLine="1"/>
       </Position29>
       <Position30>
         <Filename Value="mp_main.pas"/>
-        <Caret Line="460" Column="1" TopLine="438"/>
+        <Caret Line="174" Column="33" TopLine="147"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
@@ -458,6 +460,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="Synapse"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
@@ -497,5 +500,4 @@
       </Item3>
     </Exceptions>
   </Debugging>
-  <EditorMacros Count="0"/>
-</CONFIG>
+</CONFIG>
